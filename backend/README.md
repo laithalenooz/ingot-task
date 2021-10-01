@@ -12,7 +12,7 @@ Clone the repository
 
 Switch to the repo folder
 
-    cd ingot-task
+    cd ingot-task/backend
 
 Install all the dependencies using composer
 
