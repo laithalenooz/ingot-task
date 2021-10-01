@@ -30,10 +30,6 @@ Run the database migrations (**Set the database connection in .env before migrat
 
     php artisan migrate
 
-Run the database seeder and you're done
-
-    php artisan db:seed
-
 Start the local development server
 
     php artisan serve
@@ -43,10 +39,11 @@ You can now access the server at http://localhost:8000
 **TL;DR command list**
 
     git clone git@github.com:laithalenooz/ingot-task.git
-    cd ingot-task/backend
+    cd laravel-realworld-example-app
     composer install
     cp .env.example .env
     php artisan key:generate
+    php artisan jwt:generate 
 
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
@@ -77,7 +74,17 @@ docker-compose exec php php artisan serve --host=0.0.0.0
 ## Folders
 
 - `app` - Contains all the Eloquent models
+- `app/Http/Controllers/Api` - Contains all the api controllers
+- `app/Http/Middleware` - Contains the JWT auth middleware
+- `app/Http/Requests/Api` - Contains all the api form requests
+- `app/RealWorld/Favorite` - Contains the files implementing the favorite feature
+- `app/RealWorld/Filters` - Contains the query filters used for filtering api requests
+- `app/RealWorld/Follow` - Contains the files implementing the follow feature
+- `app/RealWorld/Paginate` - Contains the pagination class used to paginate the result
+- `app/RealWorld/Slug` - Contains the files implementing slugs to articles
+- `app/RealWorld/Transformers` - Contains all the data transformers
 - `config` - Contains all the application configuration files
+- `database/factories` - Contains the model factory for all the models
 - `database/migrations` - Contains all the database migrations
 - `database/seeds` - Contains the database seeder
 - `routes` - Contains all the api routes defined in api.php file
