@@ -15,7 +15,8 @@ class UsersSeeder extends Seeder
                 'image'    => 'user.png',
                 'password' => bcrypt('password'),
                 'phone'    => '00962777777777',
-                'birthdate'=> '1999-11-11'
+                'birthdate'=> '1999-11-11',
+                'role'     => 1
         ]);
 
         DB::table('users')->insert([

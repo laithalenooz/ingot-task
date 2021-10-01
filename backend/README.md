@@ -40,6 +40,11 @@ Start the local development server
 
 You can now access the server at http://localhost:8000
 
+**Admin & user credentials**
+
+    Admin email: admin@ingot.com | password: password
+    Regular user email: user@ingot.com  Password: password
+
 **TL;DR command list**
 
     git clone git@github.com:laithalenooz/ingot-task.git
