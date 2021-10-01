@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Balance;
 use App\Http\Requests\BalanceRequest;
 use App\Rules\BalanceRule;
-use Illuminate\Support\Facades\Validator;
 use Log;
 
 class BalancesController
 {
     public function index()
     {
-
+        // get balance records for the current logged-in user
         $balanceRecords = Balance::getBalance();
 
         return view('wallet.home')->with('balance', $balanceRecords);
@@ -34,11 +32,6 @@ class BalancesController
             Log::info($e);
             return $e;
         }
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
@@ -63,8 +56,7 @@ class BalancesController
         try {
             // validate if after removing balance the expenses will be more
             $validateBalance = Balance::checkBalance($id);
-            if ($validateBalance)
-            {
+            if ($validateBalance) {
                 return redirect()->route('wallet.index')->with('error', 'Your expenses will be above your balance.');
             }
 

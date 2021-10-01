@@ -35,17 +35,26 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image'    => ['required', 'image', 'max:5120', 'mimes:jpeg,png,jpg,gif,svg'],
+            'phone'    => ['required']
         ]);
+
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'image'    => $imageName,
             'password' => Hash::make($request->password),
+            'phone'    => $request->phone,
+            'birthdate'=> $request->birthdate
         ]);
 
+        // Create a wallet for each user
         Wallet::create([
             'user_id' => $user->id
         ]);

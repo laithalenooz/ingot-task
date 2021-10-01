@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
+        'birthdate',
+        'phone',
+        'role'
     ];
 
     /**
@@ -43,23 +47,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['balance', 'walletId', 'expenses'];
+    protected $appends = ['balance', 'walletId', 'expenses', 'income'];
 
     public function getBalanceAttribute()
     {
-        $total = auth()->user()->wallet->balances->sum('amount');
-        $expenses = auth()->user()->wallet->expenses->sum('amount');
+        $total = $this->wallet->balances->sum('amount');
+        $expenses = $this->wallet->expenses->sum('amount');
         return $total - $expenses;
     }
 
     public function getExpensesAttribute()
     {
-        return auth()->user()->wallet->expenses->sum('amount');
+        return $this->wallet->expenses->sum('amount');
+    }
+
+    public function getIncomeAttribute()
+    {
+        return $this->wallet->balances->sum('amount');
     }
 
     public function getWalletIdAttribute()
     {
-        return auth()->user()->wallet->id;
+        return $this->wallet->id;
     }
 
     public function wallet()

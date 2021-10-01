@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ExpensesRequest;
 use App\Models\Expense;
 use Log;
@@ -11,6 +10,7 @@ class ExpensesController
 {
     public function index()
     {
+        // Get expenses records
         $expensesRecords = Expense::getExpenses();
 
         return view('expenses.home')->with('expenses', $expensesRecords);
@@ -19,8 +19,7 @@ class ExpensesController
     public function create()
     {
         // validate if user has Balance
-        if (auth()->user()->balance <= 0)
-        {
+        if (auth()->user()->balance <= 0) {
             return redirect()->route('expenses.index')->with('error', 'Not enough balance.');
         }
         return view('expenses.create');
@@ -36,11 +35,6 @@ class ExpensesController
             Log::info($e);
             return $e;
         }
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
